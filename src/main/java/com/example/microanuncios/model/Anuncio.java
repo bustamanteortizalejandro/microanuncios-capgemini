@@ -5,12 +5,12 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name="anuncios")
+@Table(name = "anuncios")
 public class Anuncio {
     @Id
     @Column(name = "id_anuncio")
     private int id;
-    @JoinColumn(name="id_categoria")
+    @JoinColumn(name = "id_categoria")
     @ManyToOne
     private Categoria categoria;
     private String user;

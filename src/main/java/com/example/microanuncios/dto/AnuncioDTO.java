@@ -16,7 +16,6 @@ public class AnuncioDTO {
     }
 
 
-
     public AnuncioDTO(int id_anuncio, int id_categoria, String user, String titulo, String descripcion, double precio, Date fecha_publicacion, String usuario) {
         this.id_anuncio = id_anuncio;
         this.id_categoria = id_categoria;

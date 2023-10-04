@@ -4,6 +4,7 @@ import com.example.microanuncios.dto.AnuncioDTO;
 import com.example.microanuncios.model.Anuncio;
 
 import com.example.microanuncios.repository.AnuncioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,8 +13,9 @@ import java.util.Optional;
 @Service
 public class AnuncioServiceImpl implements AnuncioService {
 
-
+    @Autowired
     private AnuncioRepository anuncioRepository;
+
     @Override
     public List<Anuncio> findAll() {
         return anuncioRepository.findAll();

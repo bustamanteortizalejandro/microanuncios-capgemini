@@ -14,6 +14,7 @@ import java.util.Optional;
 public class CategoriaServiceImpl implements CategoriaService {
     @Autowired
     CategoryRepository categoryRepository;
+
     @Override
     public List<Categoria> findAll() {
         return categoryRepository.findAll();

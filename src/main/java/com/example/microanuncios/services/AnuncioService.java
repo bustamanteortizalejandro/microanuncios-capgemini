@@ -9,7 +9,10 @@ import java.util.Optional;
 
 public interface AnuncioService {
     public List<Anuncio> findAll();
+
     public Optional<Anuncio> findById(int id);
+
     public void Save(Anuncio anuncio);
+
     public Anuncio update(AnuncioDTO anuncioDTO);
 }

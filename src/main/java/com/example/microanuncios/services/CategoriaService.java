@@ -11,7 +11,10 @@ import java.util.Optional;
 public interface CategoriaService {
 
     public List<Categoria> findAll();
+
     public Optional<Categoria> findById(int id);
+
     public void Save(Categoria anuncio);
+
     public Categoria update(CategoriaDTO categoriaDTO);
 }
