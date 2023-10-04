@@ -15,4 +15,8 @@ public interface AnuncioService {
     public void Save(Anuncio anuncio);
 
     public Anuncio update(AnuncioDTO anuncioDTO);
+
+    public void deleteAllByCategoriaId(int id);
+
+    public List<Anuncio> findAllByCategoriaID(int id);
 }

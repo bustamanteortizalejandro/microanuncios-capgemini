@@ -64,10 +64,10 @@ public class CategoriaController {
     public ResponseEntity<String> deleteCategoria(@PathVariable("categoriaId") int categoriaId) {
 
         if(categoriaService.deleteById(categoriaId)){
-            return new ResponseEntity<>("Usuario eliminado correctamente", HttpStatus.OK);
+            return new ResponseEntity<>("categoria eliminada correctamente", HttpStatus.OK);
         }
         else{
-            return new ResponseEntity<>("No se ha podido eliminar el usuario", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No se ha podido eliminar la categoria", HttpStatus.BAD_REQUEST);
         }
     }
 }

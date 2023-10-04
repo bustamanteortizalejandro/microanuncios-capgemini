@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AnuncioServiceImpl implements AnuncioService {
@@ -46,5 +47,21 @@ public class AnuncioServiceImpl implements AnuncioService {
         anuncioRepository.save(anuncioUpdated);
         return anuncioUpdated;
 
+    }
+
+    @Override
+    public void deleteAllByCategoriaId(int id) {
+        List<Anuncio> anuncios = findAllByCategoriaID(id);
+        for (Anuncio a : anuncios){
+            anuncioRepository.delete(a);
+        }
+    }
+
+    @Override
+    public List<Anuncio> findAllByCategoriaID(int id) {
+
+        List<Anuncio> anuncios = anuncioRepository.findAll();
+        List<Anuncio> anunciosListById = anuncios.stream().filter(anuncio -> anuncio.equals(anuncio.getId())).collect(Collectors.toList());
+        return anunciosListById;
     }
 }

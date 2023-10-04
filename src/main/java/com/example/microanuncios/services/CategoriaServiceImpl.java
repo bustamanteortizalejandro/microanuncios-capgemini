@@ -1,5 +1,6 @@
 package com.example.microanuncios.services;
 
+import com.example.microanuncios.dto.AnuncioDTO;
 import com.example.microanuncios.dto.CategoriaDTO;
 import com.example.microanuncios.model.Anuncio;
 import com.example.microanuncios.model.Categoria;
@@ -7,13 +8,16 @@ import com.example.microanuncios.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CategoriaServiceImpl implements CategoriaService {
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private AnuncioService anuncioService;
 
     @Override
     public List<Categoria> findAll() {
@@ -75,6 +79,7 @@ public class CategoriaServiceImpl implements CategoriaService {
         if (!categoria.isPresent()) {
             throw new IllegalArgumentException("Está categoria no existe");
         }
+        anuncioService.deleteAllByCategoriaId(id);
         categoryRepository.deleteById(id);
         return true;
     }
