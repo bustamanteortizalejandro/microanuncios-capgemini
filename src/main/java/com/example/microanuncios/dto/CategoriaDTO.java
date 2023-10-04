@@ -7,21 +7,17 @@ import java.util.List;
 
 public class CategoriaDTO {
     private int id;
-    private String nombre;
+    private String descripcion;
     private List<Anuncio> anuncios = new ArrayList<>();
+
+
 
     public CategoriaDTO() {
     }
 
-    public CategoriaDTO(int id, String nombre, List<Anuncio> anuncios) {
+    public CategoriaDTO(int id, String descripcion) {
         this.id = id;
-        this.nombre = nombre;
-        this.anuncios = anuncios;
-    }
-
-    public CategoriaDTO(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
+        this.descripcion = descripcion;
     }
 
     public int getId() {
@@ -32,12 +28,12 @@ public class CategoriaDTO {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public List<Anuncio> getAnuncios() {
@@ -52,7 +48,7 @@ public class CategoriaDTO {
     public String toString() {
         return "CategoriaDTO{" +
                 "id=" + id +
-                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
                 ", anuncios=" + anuncios +
                 '}';
     }

@@ -17,4 +17,9 @@ public interface CategoriaService {
     public void Save(Categoria anuncio);
 
     public Categoria update(CategoriaDTO categoriaDTO);
+
+    public Categoria parseCategoriaDTO(CategoriaDTO categoriaDTO);
+
+    public Categoria saveNewCategoria(CategoriaDTO categoriaDTO);
+
 }

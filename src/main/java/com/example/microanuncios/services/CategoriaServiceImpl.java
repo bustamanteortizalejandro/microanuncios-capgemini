@@ -26,18 +26,44 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
-    public void Save(Categoria anuncio) {
-        categoryRepository.save(anuncio);
+    public void Save(Categoria categoria) {
+        categoryRepository.save(categoria);
     }
 
     @Override
     public Categoria update(CategoriaDTO categoriaDTO) {
+        if (categoryRepository.findById(categoriaDTO.getId()).isPresent()) {
+            Categoria udpateCategoria = parseCategoriaDTO(categoriaDTO);
+            categoryRepository.save(udpateCategoria);
+            return udpateCategoria;
+        } else {
+            throw new IllegalArgumentException("La categoria no existe");
+        }
+    }
 
-        Categoria udpateCategoria = new Categoria(
-                categoriaDTO.getId(),
-                categoriaDTO.getNombre()
-        );
-        categoryRepository.save(udpateCategoria);
-        return udpateCategoria;
+    @Override
+    public Categoria parseCategoriaDTO(CategoriaDTO categoriaDTO) {
+
+        if (categoriaDTO != null) {
+            Categoria categoria = new Categoria(
+                    categoriaDTO.getId(),
+                    categoriaDTO.getDescripcion()
+            );
+            return categoria;
+        } else {
+            throw new IllegalArgumentException("El objeto CategoriaDTO no puede ser nulo");
+        }
+    }
+
+    @Override
+    public Categoria saveNewCategoria(CategoriaDTO categoriaDTO) {
+
+        if(!categoryRepository.findById(categoriaDTO.getId()).isPresent()){
+            Categoria categoria = parseCategoriaDTO(categoriaDTO);
+            categoryRepository.save(categoria);
+            return categoria;
+        }else{
+            throw new IllegalArgumentException("Está categoria ya existe");
+        }
     }
 }
