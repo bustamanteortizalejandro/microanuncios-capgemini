@@ -4,6 +4,7 @@ import com.example.microanuncios.dto.CategoriaDTO;
 import com.example.microanuncios.model.Categoria;
 import com.example.microanuncios.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,5 +58,16 @@ public class CategoriaController {
             return ResponseEntity.noContent().build();
         }
 
+    }
+
+    @DeleteMapping("/categorias/delete/{categoriaId}")
+    public ResponseEntity<String> deleteCategoria(@PathVariable("categoriaId") int categoriaId) {
+
+        if(categoriaService.deleteById(categoriaId)){
+            return new ResponseEntity<>("Usuario eliminado correctamente", HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>("No se ha podido eliminar el usuario", HttpStatus.BAD_REQUEST);
+        }
     }
 }

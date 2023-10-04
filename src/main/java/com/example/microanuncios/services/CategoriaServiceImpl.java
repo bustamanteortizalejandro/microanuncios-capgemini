@@ -58,12 +58,24 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Override
     public Categoria saveNewCategoria(CategoriaDTO categoriaDTO) {
 
-        if(!categoryRepository.findById(categoriaDTO.getId()).isPresent()){
+        if (!categoryRepository.findById(categoriaDTO.getId()).isPresent()) {
             Categoria categoria = parseCategoriaDTO(categoriaDTO);
             categoryRepository.save(categoria);
             return categoria;
-        }else{
+        } else {
             throw new IllegalArgumentException("Está categoria ya existe");
         }
+    }
+
+    @Override
+    public boolean deleteById(int id) {
+
+        Optional<Categoria> categoria = categoryRepository.findById(id);
+
+        if (!categoria.isPresent()) {
+            throw new IllegalArgumentException("Está categoria no existe");
+        }
+        categoryRepository.deleteById(id);
+        return true;
     }
 }

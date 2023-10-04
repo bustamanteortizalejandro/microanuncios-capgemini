@@ -22,4 +22,7 @@ public interface CategoriaService {
 
     public Categoria saveNewCategoria(CategoriaDTO categoriaDTO);
 
+    public boolean deleteById(int id);
+
+
 }
