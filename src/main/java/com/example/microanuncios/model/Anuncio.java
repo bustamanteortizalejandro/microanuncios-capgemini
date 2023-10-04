@@ -1,8 +1,6 @@
 package com.example.microanuncios.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.quartz.QuartzTransactionManager;
 
 import java.util.Date;
 

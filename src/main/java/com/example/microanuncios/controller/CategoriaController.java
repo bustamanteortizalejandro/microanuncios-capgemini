@@ -4,33 +4,32 @@ import com.example.microanuncios.model.Categoria;
 import com.example.microanuncios.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class AnuncioController {
+@RequestMapping("/api/microanuncios")
+public class CategoriaController {
 
     @Autowired
     private CategoriaService categoriaService;
 
-    @GetMapping("/lista")
-    public ResponseEntity <List<Categoria>> getAll(){
+    @GetMapping("/categorias")
+    public ResponseEntity <List<Categoria>> findAll(){
         List<Categoria> categorias = categoriaService.findAll();
         return ResponseEntity.ok(categorias);
     }
 
-    @GetMapping("/anunciouno")
-    public ResponseEntity<Categoria> getUno() {
-        Optional<Categoria> categoriaOptional = categoriaService.findById(1);
+    @GetMapping("/categorias/{categoriaId}")
+    public ResponseEntity<Categoria> findById(@PathVariable("categoriaId")int categoriaId) {
+        Optional<Categoria> categoriaOptional = categoriaService.findById(categoriaId);
 
         if (categoriaOptional.isPresent()) {
             Categoria categoria = categoriaOptional.get();
             return ResponseEntity.ok(categoria);
         } else {
-            // En este caso, no se encontró una categoría con el ID proporcionado (0).
             return ResponseEntity.notFound().build();
         }
     }
