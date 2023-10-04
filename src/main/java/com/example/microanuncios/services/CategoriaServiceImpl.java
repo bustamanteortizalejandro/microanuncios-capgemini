@@ -25,8 +25,31 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
+    public List<CategoriaDTO> findAllDTO() {
+        List<Categoria> categorias= categoryRepository.findAll();
+        List<CategoriaDTO> categoriaDTOS = new ArrayList<>();
+
+        for(Categoria categoria: categorias){
+                   categoriaDTOS.add(parseCategoria(categoria));
+        }
+        return categoriaDTOS;
+
+    }
+
+    @Override
     public Optional<Categoria> findById(int id) {
         return categoryRepository.findById(id);
+    }
+
+    @Override
+    public CategoriaDTO findByIdDTO(int id) {
+        Categoria categoria = findById(id).get();
+        if(categoria ==null){
+            throw new IllegalArgumentException("El objeto no puede ser nulo");
+        }
+        CategoriaDTO categoriaDTO = parseCategoria(categoria);
+        return categoriaDTO;
+
     }
 
     @Override
@@ -35,11 +58,11 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
-    public Categoria update(CategoriaDTO categoriaDTO) {
+    public CategoriaDTO update(CategoriaDTO categoriaDTO) {
         if (categoryRepository.findById(categoriaDTO.getId()).isPresent()) {
             Categoria udpateCategoria = parseCategoriaDTO(categoriaDTO);
             categoryRepository.save(udpateCategoria);
-            return udpateCategoria;
+            return parseCategoria(udpateCategoria);
         } else {
             throw new IllegalArgumentException("La categoria no existe");
         }
@@ -60,12 +83,23 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
-    public Categoria saveNewCategoria(CategoriaDTO categoriaDTO) {
+    public CategoriaDTO parseCategoria(Categoria categoria) {
+
+        CategoriaDTO categoriaDTO = new CategoriaDTO(
+                categoria.getId(),
+                categoria.getDescripcion()
+        );
+
+        return categoriaDTO;
+    }
+
+    @Override
+    public CategoriaDTO saveNewCategoria(CategoriaDTO categoriaDTO) {
 
         if (!categoryRepository.findById(categoriaDTO.getId()).isPresent()) {
             Categoria categoria = parseCategoriaDTO(categoriaDTO);
             categoryRepository.save(categoria);
-            return categoria;
+            return parseCategoria(categoria);
         } else {
             throw new IllegalArgumentException("Está categoria ya existe");
         }

@@ -12,15 +12,21 @@ public interface CategoriaService {
 
     public List<Categoria> findAll();
 
+    public List<CategoriaDTO> findAllDTO();
+
     public Optional<Categoria> findById(int id);
+
+    public CategoriaDTO findByIdDTO(int id);
 
     public void Save(Categoria anuncio);
 
-    public Categoria update(CategoriaDTO categoriaDTO);
+    public CategoriaDTO update(CategoriaDTO categoriaDTO);
 
     public Categoria parseCategoriaDTO(CategoriaDTO categoriaDTO);
 
-    public Categoria saveNewCategoria(CategoriaDTO categoriaDTO);
+    public CategoriaDTO parseCategoria(Categoria categoria);
+
+    public CategoriaDTO saveNewCategoria(CategoriaDTO categoriaDTO);
 
     public boolean deleteById(int id);
 

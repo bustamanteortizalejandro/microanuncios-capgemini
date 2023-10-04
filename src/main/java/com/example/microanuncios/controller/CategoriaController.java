@@ -19,29 +19,28 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping("/categorias")
-    public ResponseEntity<List<Categoria>> findAll() {
-        List<Categoria> categorias = categoriaService.findAll();
-        return ResponseEntity.ok(categorias);
+    public ResponseEntity<List<CategoriaDTO>> findAll() {
+        List<CategoriaDTO> categoriasDTO = categoriaService.findAllDTO();
+        return ResponseEntity.ok(categoriasDTO);
     }
 
     @GetMapping("/categorias/{categoriaId}")
-    public ResponseEntity<Categoria> findById(@PathVariable("categoriaId") int categoriaId) {
-        Optional<Categoria> categoriaOptional = categoriaService.findById(categoriaId);
+    public ResponseEntity<CategoriaDTO> findById(@PathVariable("categoriaId") int categoriaId) {
+        CategoriaDTO categoriaDTO = categoriaService.findByIdDTO(categoriaId);
 
-        if (categoriaOptional.isPresent()) {
-            Categoria categoria = categoriaOptional.get();
-            return ResponseEntity.ok(categoria);
+        if (categoriaDTO != null) {
+            return ResponseEntity.ok(categoriaDTO);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    @PostMapping("/categorias/update")
-    public ResponseEntity<Categoria> updateCategoria(@RequestBody CategoriaDTO categoriaDTO) {
+    @PutMapping("/categorias/update")
+    public ResponseEntity<CategoriaDTO> updateCategoria(@RequestBody CategoriaDTO categoriaDTO) {
 
         if (categoriaDTO != null) {
-            Categoria categoria = categoriaService.update(categoriaDTO);
-            return ResponseEntity.ok(categoria);
+            CategoriaDTO categoriaDTOupdated = categoriaService.update(categoriaDTO);
+            return ResponseEntity.ok(categoriaDTOupdated);
         } else {
             return ResponseEntity.noContent().build();
         }
@@ -49,11 +48,11 @@ public class CategoriaController {
     }
 
     @PostMapping("/categorias/save")
-    public ResponseEntity<Categoria> saveNewCategoria(@RequestBody CategoriaDTO categoriaDTO) {
+    public ResponseEntity<CategoriaDTO> saveNewCategoria(@RequestBody CategoriaDTO categoriaDTO) {
 
         if (categoriaDTO != null) {
-            Categoria categoria = categoriaService.saveNewCategoria(categoriaDTO);
-            return ResponseEntity.ok(categoria);
+            CategoriaDTO categoriaSaved = categoriaService.saveNewCategoria(categoriaDTO);
+            return ResponseEntity.ok(categoriaSaved);
         } else {
             return ResponseEntity.noContent().build();
         }
@@ -63,10 +62,9 @@ public class CategoriaController {
     @DeleteMapping("/categorias/delete/{categoriaId}")
     public ResponseEntity<String> deleteCategoria(@PathVariable("categoriaId") int categoriaId) {
 
-        if(categoriaService.deleteById(categoriaId)){
+        if (categoriaService.deleteById(categoriaId)) {
             return new ResponseEntity<>("categoria eliminada correctamente", HttpStatus.OK);
-        }
-        else{
+        } else {
             return new ResponseEntity<>("No se ha podido eliminar la categoria", HttpStatus.BAD_REQUEST);
         }
     }
