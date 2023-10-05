@@ -10,13 +10,12 @@ public class AnuncioDTO {
     private String descripcion;
     private double precio;
     private Date fecha_publicacion;
-    private String usuario;
 
     public AnuncioDTO() {
     }
 
 
-    public AnuncioDTO(int id_anuncio, int id_categoria, String user, String titulo, String descripcion, double precio, Date fecha_publicacion, String usuario) {
+    public AnuncioDTO(int id_anuncio, int id_categoria, String user, String titulo, String descripcion, double precio, Date fecha_publicacion) {
         this.id_anuncio = id_anuncio;
         this.id_categoria = id_categoria;
         this.user = user;
@@ -24,7 +23,15 @@ public class AnuncioDTO {
         this.descripcion = descripcion;
         this.precio = precio;
         this.fecha_publicacion = fecha_publicacion;
-        this.usuario = usuario;
+    }
+
+    public AnuncioDTO(int id_anuncio, String user, String titulo, String descripcion, double precio, Date fecha_publicacion) {
+        this.id_anuncio = id_anuncio;
+        this.user = user;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.fecha_publicacion = fecha_publicacion;
     }
 
     public int getId_anuncio() {
@@ -83,13 +90,7 @@ public class AnuncioDTO {
         this.fecha_publicacion = fecha_publicacion;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
 
     @Override
     public String toString() {
@@ -101,7 +102,6 @@ public class AnuncioDTO {
                 ", descripcion='" + descripcion + '\'' +
                 ", precio=" + precio +
                 ", fecha_publicacion=" + fecha_publicacion +
-                ", usuario='" + usuario + '\'' +
                 '}';
     }
 }

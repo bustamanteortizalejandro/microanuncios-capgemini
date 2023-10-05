@@ -18,20 +18,19 @@ public class Anuncio {
     private String descripcion;
     private double precio;
     private Date fecha_publicacion;
-    private String usuario;
 
 
     public Anuncio() {
     }
 
-    public Anuncio(int id, String user, String titulo, String descripcion, double precio, Date fecha_publicacion, String usuario) {
+    public Anuncio(int id, Categoria categoria, String user, String titulo, String descripcion, double precio, Date fecha_publicacion) {
         this.id = id;
+        this.categoria = categoria;
         this.user = user;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.precio = precio;
         this.fecha_publicacion = fecha_publicacion;
-        this.usuario = usuario;
     }
 
     public int getId() {
@@ -90,13 +89,8 @@ public class Anuncio {
         this.fecha_publicacion = fecha_publicacion;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
+
 
     @Override
     public String toString() {
@@ -108,7 +102,6 @@ public class Anuncio {
                 ", descripcion='" + descripcion + '\'' +
                 ", precio=" + precio +
                 ", fecha_publicacion=" + fecha_publicacion +
-                ", usuario='" + usuario + '\'' +
                 '}';
     }
 }

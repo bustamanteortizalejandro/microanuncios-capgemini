@@ -37,7 +37,6 @@ public class CategoriaController {
 
     @PutMapping("/categorias/update")
     public ResponseEntity<CategoriaDTO> updateCategoria(@RequestBody CategoriaDTO categoriaDTO) {
-
         if (categoriaDTO != null) {
             CategoriaDTO categoriaDTOupdated = categoriaService.update(categoriaDTO);
             return ResponseEntity.ok(categoriaDTOupdated);

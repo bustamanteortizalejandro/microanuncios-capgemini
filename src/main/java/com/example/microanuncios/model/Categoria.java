@@ -25,6 +25,10 @@ public class Categoria {
         this.descripcion = descripcion;
     }
 
+    public Categoria(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
