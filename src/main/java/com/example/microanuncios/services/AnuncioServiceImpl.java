@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -99,5 +100,21 @@ public class AnuncioServiceImpl implements AnuncioService {
         );
 
         return anuncioDTO;
+    }
+
+    @Override
+    public List<AnuncioDTO> findAnuncioDTOByCategoriaId(int categoriaId) {
+
+        List<Anuncio> anuncios = anuncioRepository.findAll();
+        List<Anuncio> anunciosByCategoria = anuncios.stream().filter(anuncio -> anuncio.getCategoria().getId()==categoriaId).collect(Collectors.toList());
+        List<AnuncioDTO> anunciosDTOS = new ArrayList<>();
+
+        for(Anuncio a: anunciosByCategoria){
+
+            AnuncioDTO anuncioDTO = new AnuncioDTO();
+            anuncioDTO = parseAnuncio(a);
+            anunciosDTOS.add(anuncioDTO);
+        }
+        return anunciosDTOS;
     }
 }

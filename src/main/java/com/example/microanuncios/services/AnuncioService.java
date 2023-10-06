@@ -24,4 +24,6 @@ public interface AnuncioService {
     public Anuncio parseAnuncioDTO(AnuncioDTO anuncioDTO);
 
     public AnuncioDTO parseAnuncio(Anuncio anuncio);
+
+    public List<AnuncioDTO> findAnuncioDTOByCategoriaId(int categoriaId);
 }
