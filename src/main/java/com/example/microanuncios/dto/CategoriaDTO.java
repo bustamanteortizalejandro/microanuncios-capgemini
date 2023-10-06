@@ -15,8 +15,8 @@ public class CategoriaDTO {
     public CategoriaDTO() {
     }
 
-    public CategoriaDTO(int id, String descripcion) {
-        this.id_categoria = id;
+    public CategoriaDTO(int id_categoria, String descripcion) {
+        this.id_categoria = id_categoria;
         this.descripcion = descripcion;
     }
 

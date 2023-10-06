@@ -71,7 +71,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Override
     public Categoria parseCategoriaDTO(CategoriaDTO categoriaDTO) {
 
-        if (categoriaDTO != null) {
+        if (categoriaDTO.getDescripcion() != null) {
             Categoria categoria = new Categoria(
                     categoriaDTO.getId(),
                     categoriaDTO.getDescripcion()
@@ -96,13 +96,17 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Override
     public CategoriaDTO saveNewCategoria(CategoriaDTO categoriaDTO) {
 
-        if (!categoryRepository.findById(categoriaDTO.getId()).isPresent()) {
+        List<Categoria> categories = categoryRepository.findAll();
+
+        int maxId = categories.stream()
+                .mapToInt(value -> value.getId()).max().getAsInt()+1;
+
+            categoriaDTO.setId(maxId);
             Categoria categoria = parseCategoriaDTO(categoriaDTO);
             categoryRepository.save(categoria);
             return parseCategoria(categoria);
-        } else {
-            throw new IllegalArgumentException("Está categoria ya existe");
-        }
+
+
     }
 
     @Override

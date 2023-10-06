@@ -49,7 +49,7 @@ public class CategoriaController {
     @PostMapping("/categorias/save")
     public ResponseEntity<CategoriaDTO> saveNewCategoria(@RequestBody CategoriaDTO categoriaDTO) {
 
-        if (categoriaDTO != null) {
+        if (categoriaDTO.getDescripcion() != null) {
             CategoriaDTO categoriaSaved = categoriaService.saveNewCategoria(categoriaDTO);
             return ResponseEntity.ok(categoriaSaved);
         } else {
