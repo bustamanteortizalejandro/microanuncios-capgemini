@@ -6,6 +6,7 @@ import com.example.microanuncios.model.Anuncio;
 
 import com.example.microanuncios.model.Categoria;
 import com.example.microanuncios.repository.AnuncioRepository;
+import com.example.microanuncios.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,8 @@ public class AnuncioServiceImpl implements AnuncioService {
 
     @Autowired
     private AnuncioRepository anuncioRepository;
-    @Lazy
     @Autowired
-    private CategoriaService categoriaService;
+    private CategoryRepository categoryRepository;
 
     @Override
     public List<Anuncio> findAll() {
@@ -42,7 +42,7 @@ public class AnuncioServiceImpl implements AnuncioService {
     public void update(AnuncioDTO anuncioDTO) {
 
         Anuncio anuncio = anuncioRepository.findById(anuncioDTO.getId_anuncio()).get();
-        Categoria categoria = categoriaService.findById(anuncioDTO.getId_categoria()).get();
+        Categoria categoria = categoryRepository.findById(anuncioDTO.getId_categoria()).get();
 
         anuncio.setId(anuncioDTO.getId_anuncio());
         anuncio.setCategoria(categoria);

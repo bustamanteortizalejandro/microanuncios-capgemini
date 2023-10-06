@@ -8,10 +8,11 @@ import java.util.Date;
 @Table(name = "anuncios")
 public class Anuncio {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_anuncio")
     private int id;
     @JoinColumn(name = "id_categoria")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Categoria categoria;
     private String user;
     private String titulo;

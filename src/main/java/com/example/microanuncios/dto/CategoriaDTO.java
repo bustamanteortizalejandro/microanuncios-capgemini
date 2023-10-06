@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriaDTO {
-    private int id;
+    private int id_categoria;
     private String descripcion;
     private List<Anuncio> anuncios = new ArrayList<>();
 
@@ -16,16 +16,16 @@ public class CategoriaDTO {
     }
 
     public CategoriaDTO(int id, String descripcion) {
-        this.id = id;
+        this.id_categoria = id;
         this.descripcion = descripcion;
     }
 
     public int getId() {
-        return id;
+        return id_categoria;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id_categoria = id;
     }
 
     public String getDescripcion() {
@@ -47,7 +47,7 @@ public class CategoriaDTO {
     @Override
     public String toString() {
         return "CategoriaDTO{" +
-                "id=" + id +
+                "id=" + id_categoria +
                 ", descripcion='" + descripcion + '\'' +
                 ", anuncios=" + anuncios +
                 '}';

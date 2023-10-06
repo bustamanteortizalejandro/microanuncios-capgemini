@@ -113,6 +113,9 @@ public class CategoriaServiceImpl implements CategoriaService {
         if (!categoria.isPresent()) {
             throw new IllegalArgumentException("Está categoria no existe");
         }
+        if(!categoria.get().getAnuncios().isEmpty()){
+            throw new IllegalStateException("La categoría contiene anuncios y no se puede borrar");
+        }
         anuncioService.deleteAllByCategoriaId(id);
         categoryRepository.deleteById(id);
         return true;
