@@ -6,6 +6,8 @@ import com.example.microanuncios.model.Anuncio;
 import com.example.microanuncios.model.Categoria;
 import com.example.microanuncios.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -110,18 +112,37 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
-    public boolean deleteById(int id) {
+    public ResponseEntity<String> deleteById(int id) {
 
-        Optional<Categoria> categoria = categoryRepository.findById(id);
 
-        if (!categoria.isPresent()) {
-            throw new IllegalArgumentException("Está categoria no existe");
+        try{
+            Optional<Categoria> categoria = categoryRepository.findById(id);
+
+            if (!categoria.isPresent()) {
+                throw new IllegalArgumentException("Está categoria no existe");
+            }
+
+            if(!categoria.get().getAnuncios().isEmpty()){
+                throw new IllegalStateException("La categoría contiene anuncios y no se puede borrar");
+            }
+
+            anuncioService.deleteAllByCategoriaId(id);
+
+            categoryRepository.deleteById(id);
+
+            return new ResponseEntity<>("Categoría eliminada correctamente", HttpStatus.OK);
+
+        }catch (IllegalArgumentException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+
+        } catch (IllegalStateException  e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error inesperado al eliminar la categoría", HttpStatus.INTERNAL_SERVER_ERROR);
+
         }
-        if(!categoria.get().getAnuncios().isEmpty()){
-            throw new IllegalStateException("La categoría contiene anuncios y no se puede borrar");
-        }
-        anuncioService.deleteAllByCategoriaId(id);
-        categoryRepository.deleteById(id);
-        return true;
+
+
     }
 }

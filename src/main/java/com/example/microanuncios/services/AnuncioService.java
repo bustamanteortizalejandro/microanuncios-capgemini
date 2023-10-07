@@ -3,6 +3,7 @@ package com.example.microanuncios.services;
 import com.example.microanuncios.dto.AnuncioDTO;
 import com.example.microanuncios.model.Anuncio;
 import com.example.microanuncios.model.Categoria;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,4 +27,7 @@ public interface AnuncioService {
     public AnuncioDTO parseAnuncio(Anuncio anuncio);
 
     public List<AnuncioDTO> findAnuncioDTOByCategoriaId(int categoriaId);
+
+    public ResponseEntity<String> saveNewAnuncio(AnuncioDTO anuncioDTO);
+
 }

@@ -1,6 +1,7 @@
 package com.example.microanuncios.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
@@ -17,6 +18,8 @@ public class Anuncio {
     private String titulo;
     private String descripcion;
     private double precio;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fecha_publicacion;
 
 
@@ -31,6 +34,14 @@ public class Anuncio {
         this.descripcion = descripcion;
         this.precio = precio;
         this.fecha_publicacion = fecha_publicacion;
+    }
+
+    public Anuncio(Categoria categoria, String user, String titulo, String descripcion, double precio) {
+        this.categoria = categoria;
+        this.user = user;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.precio = precio;
     }
 
     public int getId() {

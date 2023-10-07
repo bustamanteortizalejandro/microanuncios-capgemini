@@ -9,6 +9,8 @@ import com.example.microanuncios.repository.AnuncioRepository;
 import com.example.microanuncios.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -106,15 +108,44 @@ public class AnuncioServiceImpl implements AnuncioService {
     public List<AnuncioDTO> findAnuncioDTOByCategoriaId(int categoriaId) {
 
         List<Anuncio> anuncios = anuncioRepository.findAll();
-        List<Anuncio> anunciosByCategoria = anuncios.stream().filter(anuncio -> anuncio.getCategoria().getId()==categoriaId).collect(Collectors.toList());
+        List<Anuncio> anunciosByCategoria = anuncios.stream().filter(anuncio -> anuncio.getCategoria().getId() == categoriaId).collect(Collectors.toList());
         List<AnuncioDTO> anunciosDTOS = new ArrayList<>();
 
-        for(Anuncio a: anunciosByCategoria){
+        for (Anuncio a : anunciosByCategoria) {
 
             AnuncioDTO anuncioDTO = new AnuncioDTO();
             anuncioDTO = parseAnuncio(a);
             anunciosDTOS.add(anuncioDTO);
         }
         return anunciosDTOS;
+    }
+
+    @Override
+    public ResponseEntity<String> saveNewAnuncio(AnuncioDTO anuncioDTO) {
+
+        Optional<Categoria> categoria = categoryRepository.findById(anuncioDTO.getId_categoria());
+
+        if (!categoria.isPresent()) {
+
+            return new ResponseEntity<>("No se ha podido crear el anuncio debido a que a categoria no existe", HttpStatus.BAD_REQUEST);
+
+        } else {
+
+            Anuncio anuncio = new Anuncio(
+                    categoria.get(),
+                    anuncioDTO.getUser(),
+                    anuncioDTO.getTitulo(),
+                    anuncioDTO.getDescripcion(),
+                    anuncioDTO.getPrecio()
+            );
+
+            anuncioRepository.save(anuncio);
+
+            return new ResponseEntity<>("El anuncio se ha creado correctamente", HttpStatus.CREATED);
+
+
+        }
+
+
     }
 }

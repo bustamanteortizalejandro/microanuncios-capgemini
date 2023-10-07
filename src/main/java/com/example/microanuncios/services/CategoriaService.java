@@ -4,6 +4,7 @@ import com.example.microanuncios.dto.AnuncioDTO;
 import com.example.microanuncios.dto.CategoriaDTO;
 import com.example.microanuncios.model.Anuncio;
 import com.example.microanuncios.model.Categoria;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +29,7 @@ public interface CategoriaService {
 
     public CategoriaDTO saveNewCategoria(CategoriaDTO categoriaDTO);
 
-    public boolean deleteById(int id);
+    public ResponseEntity<String> deleteById(int id);
 
 
 }

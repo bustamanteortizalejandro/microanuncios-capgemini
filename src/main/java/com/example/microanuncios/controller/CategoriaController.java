@@ -61,10 +61,6 @@ public class CategoriaController {
     @DeleteMapping("/categorias/delete/{categoriaId}")
     public ResponseEntity<String> deleteCategoria(@PathVariable("categoriaId") int categoriaId) {
 
-        if (categoriaService.deleteById(categoriaId)) {
-            return new ResponseEntity<>("categoria eliminada correctamente", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("No se ha podido eliminar la categoria", HttpStatus.BAD_REQUEST);
-        }
+        return categoriaService.deleteById(categoriaId);
     }
 }
